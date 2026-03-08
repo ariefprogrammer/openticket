@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Services\DokuService;
 use App\Models\Payment;
 use Filament\Notifications\Notification;
+use Filament\Forms\Components\RichEditor;
 
 class TicketResource extends Resource
 {
@@ -45,12 +46,24 @@ class TicketResource extends Resource
                             ->disabled(fn () => auth()->user()->role !== 'client'),
                             // ->disabled(fn ($record) => $record !== null),
 
-                        Forms\Components\Textarea::make('description')
-                            ->label('Detail Kendala')
+                        RichEditor::make('description')
                             ->required()
                             ->columnSpanFull()
-                            ->disabled(fn () => auth()->user()->role !== 'client'),
-                            // ->disabled(fn ($record) => $record !== null),
+                            ->disabled(fn () => auth()->user()->role !== 'client')
+                            ->label('Detail Kendala')
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsDirectory('ticket-attachments')
+                            ->fileAttachmentsVisibility('public')
+                            ->toolbarButtons([
+                                'bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'link',
+                                'h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd',
+                                'blockquote', 'codeBlock', 'bulletList', 'orderedList',
+                                'table', 'attachFiles',
+                                'undo', 'redo'
+
+                            ])
+                            ->required()
+                            ->columnSpanFull(),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Admin Review & Status')
