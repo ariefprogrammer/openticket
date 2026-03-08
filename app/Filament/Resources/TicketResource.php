@@ -51,16 +51,12 @@ class TicketResource extends Resource
                             ->columnSpanFull()
                             ->disabled(fn () => auth()->user()->role !== 'client')
                             ->label('Detail Kendala')
+                            ->helperText('Silakan jelaskan kendala Anda dan lampirkan screenshot menggunakan icon image (yang paling kanan)')
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('ticket-attachments')
                             ->fileAttachmentsVisibility('public')
                             ->toolbarButtons([
-                                'bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'link',
-                                'h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd',
-                                'blockquote', 'codeBlock', 'bulletList', 'orderedList',
-                                'table', 'attachFiles',
-                                'undo', 'redo'
-
+                                'attachFiles', 'bold', 'italic', 'bulletList', 'orderedList',
                             ])
                             ->required()
                             ->columnSpanFull(),
